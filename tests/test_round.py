@@ -82,12 +82,11 @@ class RoundTest(TestCase):
 
         # https://bugs.ruby-lang.org/issues/5228
         self.assertEqual(sr.round(25 * (10 ** 70) - 1, -71), 2.0e71)
-        #self.assertEqual(sr.round(25 * (10 ** 70), -71), 3.0e71)   # FIXME
+        self.assertEqual(sr.round(25 * (10 ** 70), -71), 3.0e71)
         self.assertEqual(sr.round(-25 * (10 ** 70) + 1, -71), -2.0e71)
-        #self.assertEqual(sr.round(-25 * (10 ** 70), -71), -3.0e71) # FIXME
+        self.assertEqual(sr.round(-25 * (10 ** 70), -71), -3.0e71)
 
         # https://bugs.ruby-lang.org/issues/14635
-        #self.assertEqual(sr.round(3.0e-31, 31), 3.0e-31)   # FIXME
-        #for i in range(1, 32): # FIXME
-        for i in range(1, 16):
+        self.assertEqual(sr.round(3.0e-31, 31), 3.0e-31)
+        for i in range(1, 32):
             self.assertEqual(sr.round(0.5, i), 0.5)

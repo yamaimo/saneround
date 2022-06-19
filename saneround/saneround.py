@@ -1,3 +1,4 @@
+from decimal import Decimal, ROUND_HALF_UP
 import math
 import sys
 from typing import Union
@@ -13,6 +14,9 @@ def round(number: Numeric, ndigits: int = 0) -> float:
         return number
     if __will_underflow(num_binexp, ndigits):
         return 0.0
+
+    if abs(ndigits) > sys.float_info.dig:
+        return __decimal_round(number, ndigits)
 
     shift_amount = math.pow(10, ndigits)
 
@@ -36,3 +40,9 @@ def __will_overflow(num_binexp: int, ndigits: int) -> bool:
 def __will_underflow(num_binexp: int, ndigits: int) -> bool:
     num_exp = num_binexp / 3.322259     # log_2(10) = 3.322259
     return (num_exp + ndigits) < 0
+
+def __decimal_round(number: Numeric, ndigits: int) -> float:
+    decimal = Decimal(str(number))
+    exp_decimal = Decimal(f"1e{-ndigits}")
+    rounded = decimal.quantize(exp_decimal, rounding=ROUND_HALF_UP)
+    return float(rounded)
