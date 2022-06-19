@@ -1,9 +1,10 @@
-from decimal import Decimal, ROUND_HALF_UP
 import math
 import sys
+from decimal import ROUND_HALF_UP, Decimal
 from typing import Union
 
 Numeric = Union[int, float]
+
 
 def round(number: Numeric, ndigits: int = 0) -> float:
     if number in [math.inf, -math.inf, math.nan, 0.0]:
@@ -33,13 +34,16 @@ def round(number: Numeric, ndigits: int = 0) -> float:
 
     return shifted / shift_amount
 
+
 def __will_overflow(num_binexp: int, ndigits: int) -> bool:
-    num_exp = num_binexp / 3.322259     # log_2(10) = 3.322259
+    num_exp = num_binexp / 3.322259  # log_2(10) = 3.322259
     return (num_exp + ndigits) >= sys.float_info.dig
 
+
 def __will_underflow(num_binexp: int, ndigits: int) -> bool:
-    num_exp = num_binexp / 3.322259     # log_2(10) = 3.322259
+    num_exp = num_binexp / 3.322259  # log_2(10) = 3.322259
     return (num_exp + ndigits) < 0
+
 
 def __decimal_round(number: Numeric, ndigits: int) -> float:
     decimal = Decimal(str(number))

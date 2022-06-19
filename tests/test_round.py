@@ -1,7 +1,8 @@
-from unittest import TestCase
 import math
+from unittest import TestCase
 
 import saneround as sr
+
 
 class RoundTest(TestCase):
     def test_simple_case(self) -> None:
@@ -67,8 +68,8 @@ class RoundTest(TestCase):
         self.assertEqual(sr.round(1.0e307, 2), 1.0e307)
 
         # https://bugs.ruby-lang.org/issues/5271
-        self.assertEqual(sr.round(0.42, 2**30), 0.42)
-        self.assertEqual(sr.round(0.42, -2**30), 0.0)
+        self.assertEqual(sr.round(0.42, 2 ** 30), 0.42)
+        self.assertEqual(sr.round(0.42, -(2 ** 30)), 0.0)
 
         # https://bugs.ruby-lang.org/issues/5272
         self.assertEqual(sr.round(2.5e20, -20), 3.0e20)
