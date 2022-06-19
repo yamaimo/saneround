@@ -63,11 +63,12 @@ class RoundTest(TestCase):
 
     def test_hard_case(self) -> None:
         # https://bugs.ruby-lang.org/issues/5227
-        #self.assertEqual(sr.round(42.0, 308), 42.0)    # FIXME
-        #self.assertEqual(sr.round(1.0e307, 2), 1.0e307)    # FIXME
+        self.assertEqual(sr.round(42.0, 308), 42.0)
+        self.assertEqual(sr.round(1.0e307, 2), 1.0e307)
 
         # https://bugs.ruby-lang.org/issues/5271
-        #self.assertEqual(sr.round(0.42, 2**30), 0.42)  # FIXME
+        self.assertEqual(sr.round(0.42, 2**30), 0.42)
+        self.assertEqual(sr.round(0.42, -2**30), 0.0)
 
         # https://bugs.ruby-lang.org/issues/5272
         self.assertEqual(sr.round(2.5e20, -20), 3.0e20)
