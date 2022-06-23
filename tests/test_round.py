@@ -34,10 +34,21 @@ class RoundTest(TestCase):
         self.assertEqual(sr.round(math.inf, -2), math.inf)
         self.assertEqual(sr.round(-math.inf, -2), -math.inf)
 
+        rounded = sr.round(math.inf * math.inf)
+        self.assertTrue(rounded > 0)
+        self.assertTrue(math.isinf(rounded))
+
+        rounded = sr.round(-math.inf * math.inf)
+        self.assertTrue(rounded < 0)
+        self.assertTrue(math.isinf(rounded))
+
     def test_round_nan(self) -> None:
         self.assertTrue(math.isnan(sr.round(math.nan)))
         self.assertTrue(math.isnan(sr.round(math.nan, 2)))
         self.assertTrue(math.isnan(sr.round(math.nan, -2)))
+
+        rounded = sr.round(math.nan * math.nan)
+        self.assertTrue(math.isnan(rounded))
 
     def test_ndigits(self) -> None:
         self.assertEqual(sr.round(5.5, 0), 6.0)

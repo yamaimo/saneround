@@ -7,7 +7,7 @@ Numeric = Union[int, float]
 
 
 def round(number: Numeric, ndigits: int = 0) -> float:
-    if number in [math.inf, -math.inf, math.nan, 0.0]:
+    if (number == 0.0) or math.isinf(number) or math.isnan(number):
         return number
 
     _, num_binexp = math.frexp(number)
